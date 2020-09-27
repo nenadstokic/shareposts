@@ -138,16 +138,19 @@
         // die($myshit);
 
         // check for owner
-        if($post->user_id != $_SESSION['user_id']){
+        if($post->user_id == $_SESSION['user_id']){
+          if($this->postModel->deletePost($id)){
+            flash('post_message', 'Post removed');
+            redirect('posts');
+          } else {            
+            die('Something went wrong');
+          }
+        } else {
+          flash('post_message', 'You can not delete posts from other authors!', 'alert alert-danger');
           redirect('posts');
         }
 
-        if($this->postModel->deletePost($id)){
-          flash('post_message', 'Post removed');
-          redirect('posts');
-        } else {
-          die('Something went wrong');
-        }
+        
       } else {
         redirect('posts');
       }
