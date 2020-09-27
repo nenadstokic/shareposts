@@ -3,9 +3,11 @@
     public function __construct(){
      
     }
-
     // default method
     public function index() {
+      if(isLoggedIn()){
+        redirect('posts');
+      }
 
       $data = [
         'title' =>  'SharePosts',
